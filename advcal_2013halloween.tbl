@@ -1,0 +1,46 @@
+# ez用 フォーマット 文字コードは SJIS これ本番
+# num mm dd url
+# num: 通し番号。アドベントカレンダーで表示する文字になる
+# mm:  表示させたい月
+# dd:  表示させたい日
+# url: 表示させたい URL
+# ※行の先頭を '#' にするとコメントアウトできる
+#
+# コメントアウト
+01 05 01 /search/download?cid=de_135459
+02 05 02 /search/download?cid=de_640522
+03 05 03 /search/download?cid=de_348642
+04 05 04 /search/download?cid=de_947293
+05 05 05 /search/download?cid=de_366470
+06 05 06 /search/download?cid=de_004754
+07 05 07 /search/download?cid=de_049003
+#
+08 05 08 /search/download?cid=de_260103
+09 05 09 /search/download?cid=de_039823
+10 05 10 /search/download?cid=de_375453
+11 05 11 /search/download?cid=de_262748
+12 05 12 /search/download?cid=de_695466
+13 05 13 /search/download?cid=de_527760
+14 05 14 /search/download?cid=de_002845
+#
+15 05 15 /search/download?cid=de_529242
+16 05 16 /search/download?cid=de_315184
+17 05 17 /search/download?cid=de_555689
+18 05 18 /search/download?cid=de_973278
+19 05 19 /search/download?cid=de_307663
+20 05 20 /search/download?cid=de_921230
+21 05 21 /search/download?cid=de_953552
+#
+22 05 22 /search/download?cid=de_789944
+23 05 23 /search/download?cid=de_932009
+24 05 24 /search/download?cid=de_338445
+25 05 25 /search/download?cid=de_550261
+26 05 26 /search/download?cid=de_369904
+27 05 27 /search/download?cid=de_458559
+28 05 28 /search/download?cid=de_717768
+#
+29 05 29 /search/download?cid=de_666776
+30 05 30 /search/download?cid=de_050522
+#
+31 05 31 /search/download?cid=de_894117
+#

@@ -1,0 +1,46 @@
+# フォーマット
+# num mm dd url
+# num: 通し番号。アドベントカレンダーで表示する文字になる
+# mm:  表示させたい月
+# dd:  表示させたい日
+# url: 表示させたい URL
+# ※行の先頭を '#' にするとコメントアウトできる
+#
+#
+# コメントアウト
+1 09 01 /dx/tokusyu_gotochi_juju201306
+2 09 02 /dx/tokusyu_animalphoto201307
+3 09 03 /dx/tokusyu_yoruaisatsu201309
+4 09 04 /dx/tokusyu_summer2013
+05 09 05 /dx/tokusyu_renraku201306
+06 09 06 /dx/tokusyu_illustrator201307
+#
+7 09 07 /dx/tokusyu_gotochi_juju201306
+8 09 08 /dx/tokusyu_animalphoto201307
+9 09 09 /dx/tokusyu_yoruaisatsu201309
+10 09 10 /dx/tokusyu_summer2013
+11 09 11 /dx/tokusyu_renraku201306
+12 09 12 /dx/tokusyu_illustrator201307
+#
+13 09 13 /dx/tokusyu_gotochi_juju201306
+14 9 14 /dx/tokusyu_animalphoto201307
+15 09 15 /dx/tokusyu_yoruaisatsu201309
+16 09 16 /dx/tokusyu_summer2013
+17 9 17 /dx/tokusyu_renraku201306
+18 09 18 /dx/tokusyu_illustrator201307
+#
+19 09 19 /dx/tokusyu_gotochi_juju201306
+20 9 20 /dx/tokusyu_animalphoto201307
+21 9 21 /dx/tokusyu_yoruaisatsu201309
+22 9 22 /dx/tokusyu_summer2013
+23 9 23 /dx/tokusyu_renraku201306
+24 9 24 /dx/tokusyu_illustrator201307
+#
+25 9 25 /dx/tokusyu_gotochi_juju201306
+26 9 26 /dx/tokusyu_animalphoto201307
+27 9 27 /dx/tokusyu_yoruaisatsu201309
+28 9 28 /dx/tokusyu_summer2013
+29 9 29 /dx/tokusyu_renraku201306
+30 9 30 /dx/tokusyu_illustrator201307
+#
+31 10 31 /dx/tokusyu_illustrator201307

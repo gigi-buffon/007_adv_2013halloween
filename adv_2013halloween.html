@@ -1,0 +1,376 @@
+﻿<html lang="ja">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="/css/layout.css" />
+<title>日めくり カレンダー 2013ﾊﾛｳｨﾝ</title>
+<!-- Google analytics -->
+<?php  require_once("reqSM_google_analytics.txt");  ?>
+</head>
+<body onLoad="DaEdxAjs.searchBar('daedx://<?=$server_name;?>/search/contents/')"> 
+
+<!-- コンテンツメニュー -->
+<?php  require_once("reqSM_contentsmenu_top.txt");  ?>
+<!-- コンテンツメニュー / -->
+<!-- -->
+<img src="/images/adv_2013halloween_sp_topbnr.png" alt="ﾊﾛｳｨﾝ日めくりカレンダー" class="width-100" />
+
+<div id="content">
+<div class="width-95 center">
+<div class="center marginTB2">
+<div class="blue_stripe_bgimage width-95 clearfix">
+<div class="fortunetell-contents">
+
+
+
+<?
+	//echo "これからファイル読み込み処理<br /><br />\n";
+	// 【デバッグ】
+	// デバック カレントディレクトリはどーこだ？
+	//$path = getcwd();
+	//echo "カレントは ".$path . "<br /><br /><br />\n";
+	// keywordディレクトリの一覧を表示
+	// $path = "/data/bu/app/views";
+	//print $path . " をスキャン<br /><br />\n";
+	//$files1 = scandir($path);
+	//$files1 = scandir("/data/bu/app/views");
+	//print_r($files1);
+
+	// テーブルはとりあえず dx 直下に置いてみる。
+	define( "ADVENT_TABLE",		"/data/bu/app/views/dx/advcal_2013halloween.tbl" );
+	//print "<br /><br />読み込むテーブルは" . ADVENT_TABLE . " の予定<br /><br />\n";
+
+	// アドベントテーブルファイルの存在チェック
+	//echo ADVENT_TABLE;
+	if ( file_exists(ADVENT_TABLE) ) {
+			// echo " ファイルが存在する！！\n";
+	} else {
+			echo " ファイルが存在しない！！\n";
+	}
+
+	// $arrayAdventTable 配列に アドベントテーブルファイル を読み込んできます。
+	$arrayAdventTable = file(ADVENT_TABLE);
+	if ($arrayAdventTable == FALSE ){
+		print "file() でエラー発生\n";
+	}
+
+?>
+
+
+<table border="0" cellpadding="2" align="center" bgcolor="#ffffff">
+<!-- 【ヘッダー部】-->
+<tr>
+<td colspan = "7" align="center" >
+かわいい<img src="/images/emojiss/487.gif">ハロウィンデコやスタンプや壁紙を毎日無料で配信中<img 
+src="/images/emojiss/343.gif">1日限りの限定コンテンツなので、毎日チェックしてみてね<img 
+src="/images/emojiss/343.gif">
+</td>
+</tr>
+<tr>
+<td colspan = "7" align="center" >
+<img src="/images/adv_2013halloween_sp_header.png" width="100%" copyright="yes" alt="ﾊﾛｳｨﾝ ﾍｯﾀﾞｰ" />
+</td>
+</tr>
+<tr>
+<td align="center"><span style="color:red; font-weight:bold;">Sun</span></td>
+<td align="center"><span style="font-weight:bold;">Mon</span></td>
+<td align="center"><span style="font-weight:bold;">Tue</span></td>
+<td align="center"><span style="font-weight:bold;">Wed</span></td>
+<td align="center"><span style="font-weight:bold;">Thu</span></td>
+<td align="center"><span style="font-weight:bold;">Fri</span></td>
+<td align="center"><span style="color:blue; font-weight:bold;">Sat</span></td>
+</tr>
+<!-- 【本体】 -->
+<tr><!-- 先に tr スタートタグをセットしておく -->
+<?
+	// 変数定義
+	$i = 0; // カウンタ 0 オリジン
+	$hyouji_item_num = 7; // 1行あたりの表示個数
+	$hyouji_offset = 2; // スタートから空欄にするセル数。将来的には曜日から計算したい。0:Sun～6:Sat まで
+	$last_num = 31; // 最終日 31 
+	$matched_flag = 0; // マッチしたよフラグ
+	//
+
+
+	// offset の個数分、空欄セルを作成
+	for ($full_cell = 0; $full_cell < $hyouji_offset; $full_cell++) {
+		printf("<td align=\"center\" bgcolor=\"#ffffff\">　</td>");
+		$i++; //カウンターを増やす
+	}
+	foreach ($arrayAdventTable as $tmp) {
+		// tmp の先頭１文字をゲット
+		$top_char = substr($tmp, 0, 1); 
+		if ('#' == $top_char) {
+			//echo $top_char . " なのでスキップ <br />\n";
+		} else {
+			// ファイルの内容を各変数にセット
+			sscanf($tmp, "%d %d %d %s",  $num_cal, $month, $day, $url);
+			// カウンターを増やす
+			$i++;
+			// 最終日
+			//echo "カウンタ i は ". $i ."<br />\n";
+			// カウンタを インクリメントした後、最終日と同じなら <img localsrc=\"487\" />
+			if( $i == ($last_num + $hyouji_offset) ) { 
+				//echo "ラストフェーズ  カウンタ i は ". $i ."<br />\n";
+				//$colspan_num = $hyouji_item_num - ( ($last_num - 1) % $hyouji_item_num ) - $hyouji_offset;
+				printf("<td align=\"center\" bgcolor=\"#ffffff\">");
+				//
+				// デバッグ版は分で
+				//sscanf(date("i"), "%d",  $x_day);
+				sscanf(date("d"), "%d",  $x_day);
+				if ($x_day == $last_num ) // 取得した日付が 最終日と同じなら…
+				{
+					printf("<a href=\"/search/download?cid=de_894117\"  class=\"link_blue\">");
+					printf("<img src=\"/images/halloween31.gif\"  copyright=\"yes\" alt=\"ﾊﾛｳｨﾝ31\" ");
+					printf("style=\"border-bottom: 2px #3581F9 solid;\"/>");
+					printf("</a>");
+				} else {
+					printf("<img src=\"/images/halloween31.gif\"  copyright=\"yes\" alt=\"ﾊﾛｳｨﾝ31\" />");
+				}
+				//
+				printf("</td>");
+				printf("<td align=\"center\" bgcolor=\"#ffffff\">　</td>");
+				printf("<td align=\"center\" bgcolor=\"#ffffff\">　</td>");
+				printf("\n </tr> \n");
+				break;
+			}
+			// テーブルのセルを作成する処理
+			make_cell($num_cal, $month, $day, $url);
+			//echo "match flagは ". $matched_flag ."<br />\n";
+			if( ($i % $hyouji_item_num) == 0 ){ // カウンタインクリメント後、７個表示がおわったら改行
+				echo "\n</tr>\n<tr>\n";
+			}
+		}
+	}
+	// 後処理のつもり
+	$matched_flag = 0;
+
+	// テーブルのセルを作成する処理
+   	function make_cell($f_num, $f_month, $f_day, $f_url)
+   	{
+	 	// フラグをグローバル宣言 
+	 	global $matched_flag;
+
+   		//$now_month = 9; //デバッグ版では現在の９月にセット
+   		//現在の月を get 
+   		sscanf(date("m"), "%d",  $now_month);
+
+   		//現在の日を get 
+   		sscanf(date("d"), "%d",  $now_day);
+   		//デバッグ版では分からゲット
+   		//sscanf(date("i"), "%d",  $now_day);
+   		//if ($now_day > 31 ) {
+   		//	$now_day = floor($now_day / 2);
+   		//}
+   		//printf("今日は %d月 %d日 です。<br />\n", $now_month, $now_day);
+   		//printf("ファイルから取得した日は %d月 %d日 です。<br />\n", $f_month, $f_day);
+
+		if ( ($now_month == $f_month)  && ($now_day == $f_day) ) {
+		    //セル背景を白で作成 $url から <a>タグでリンクを作成
+		    // スマホ系は class="link_blue" を付けないとリンク線がつかない
+		    printf("<td align=\"center\" ><a href=\"%s\" class=\"link_blue\"><span style=\"font-size:x-large;\"> %d</span></a></td>  ", $f_url, $f_num);
+		    //(マッチしたよフラグ) を on
+		    $matched_flag = 1;
+			//echo "match したよ<br />\n";
+		} else {
+		    if($matched_flag){
+		      	//これから取得するよ、という意味で 文字を  薄い紫色グレーにする。
+			    printf("<td align=\"center\"><span style=\"color:#923dcc; font-size:large;\">%d</span></td>  ", $f_num);
+		    } else {
+		      	//取得済という グレー のセル背景にする。
+			    printf("<td align=\"center\" bgcolor=\"#8235b2\"><span style=\"font-size:large;\">%d</span></td>  ", $f_num);
+		    }
+		}
+		//echo "match flagは ". $matched_flag ."関数内：<br />\n";
+
+   	} 
+?>
+<!--  【フッター部】 -->
+<tr>
+<td colspan = "7" align="center" >
+<img src="/images/adv_2013halloween_sp_footer.png"  width="100%" copyright="yes" alt="ﾊﾛｳｨﾝ ﾌｯﾀｰ" />
+</td>
+</tr>
+</table>
+
+
+<!-- ここからは dvi 閉じタグ 編集はここまで ↑ ↑ -->
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!-- コンテンツメニュー -->
+<?php  require_once("reqSM_contentsmenu_under.txt");  ?>
+<!-- コンテンツメニュー / -->
+
+<?php  require_once("reqSM_footer.txt");  ?>
+</body>
+</html>
+<?
+/*********************
+
+★13/09/12
+明日は、日付が一致したら、URL リンク作成まで行こう。
+
+読み込んだテーブルの最初の 1byte 目が '#' だったら、スキップを表示させる。
+そうでない場合は mm月 dd日 URLをベタ表示までやった。
+# なのでスキップ 
+9月12日 URL:/dx/tokusyu_gotochi_juju201306
+9月13日 URL:/dx/tokusyu_animalphoto201307
+9月14日 URL:/dx/tokusyu_yoruaisatsu201309
+# なのでスキップ 
+9月15日 URL:/dx/tokusyu_summer2013
+9月16日 URL:/dx/tokusyu_renraku201306
+9月17日 URL:/dx/tokusyu_illustrator201307
+
+
+
+
+/data/bu/app/webroot 下のフォルダ達
+Array ( [0] => . [1] => .. 
+[2] => .htaccess 
+[3] => banner 
+[4] => css 
+[5] => css.php 
+[6] => decore 
+[7] => emojipack 
+[8] => images 
+[9] => index.php 
+[10] => info.php 
+[11] => js 
+[12] => temp 
+[13] => wrap )
+
+
+
+/data/bu/app/views 下のフォルダ達
+Array ( [0] => . [1] => .. 
+[2] => au_easy_settlement 
+[3] => auone 
+[4] => campaign 
+[5] => dx 
+[6] => elements 
+[7] => errors 
+[8] => helpers 
+[9] => info 
+[10] => layouts 
+[11] => search 
+[12] => tokusyu_past )
+
+
+
+/data/bu/app/views/dx/adv/2013Halloween 直下にテーブルのみってのもなぁ…
+AX様に dx 直下に dir を掘ってもOK設定をお願いするか
+
+取り合えず define でなんとかする。
+define( "EXPANDUSER_TABLE",		"expand_user" );
+
+define で定義した定数は 
+$table = EXPANDUSER_TABLE;
+という感じで使おう。
+
+
+★セル作成したときのデバッグ文
+  引数もちゃんと表示させればよかった。
+   			//$type = gettype($f_month);
+   			//echo "f_month は " . $type . "<br />\n";
+   		$now_month = 9; //デバッグ版では現在の９月にセット
+   			//$type = gettype($now_month);
+   			//echo "ダイレクトに 9 を代入した now_month は " . $type . "<br />\n";
+   			//sscanf(9, "%d",  $now_month); // sscanf() で数値固定にしたら、直った。
+   			//$type = gettype($now_month);
+   			//echo "sscanf した  now_month は " . $type . "<br />\n";
+   		printf("今日は %d月 %d日 です。<br />\n", $now_month, $now_day);
+   		printf("ファイルから取得した日は %d月 %d日 です。<br />\n", $f_month, $f_day);
+
+   	// 受けた引数をprint デバッグ
+   	//
+	   printf("通し番号:%d \n", $f_num);
+	   printf("ファイルの月:%d \n", $f_month);
+	   printf("ファイルの日:%d \n", $f_day);
+	   //printf("\t url:%s\n ", $f_url);
+	   printf("<br />\n");
+
+
+	// とりあえず、１行、1行表示かな。
+	/***
+	foreach ($arrayAdventTable as $tmp) {
+		// ファイルの内容と 改行タグと改行をエコー
+		echo $tmp . "<br />\n";
+	}
+	///
+	//echo "<br />\n";
+	//echo "★読み込んだテーブルの最初の 1byte 目が '#' だったら、スキップを表示させる。<br />\n";
+<br />
+★読み込んだテーブルの最初の 1byte 目が '#' だったら、スキップを表示させる。コメントアウト済み<br />
+	////
+	// 同じソース範囲だったら、変数のスコープは有効なのね。助かるぅ。
+	////
+	// とりあえず、１行、1行表示かな。
+	foreach ($arrayAdventTable as $tmp) {
+		// tmp の先頭１文字をゲット
+		$top_char = substr($tmp, 0, 1); 
+		if ('#' == $top_char) {
+			echo $top_char . " なのでスキップ <br />\n";
+		} else {
+			// ファイルの内容と 改行タグと改行をエコー
+			sscanf($tmp, "%d %d %d %s",  $num_cal, $month, $day, $url);
+			printf("%d月%d日 URL:%s<br />\n", $month, $day, $url);
+			//echo $tmp . "<br />\n";
+		}
+	}
+<br />
+★今度はカレンダー用番号とURL コメントアウト済み<br />
+	////
+	// 同じソース範囲だったら、変数のスコープは有効なのね。助かるぅ。
+	////
+	// とりあえず、１行、1行表示かな。
+	foreach ($arrayAdventTable as $tmp) {
+		// tmp の先頭１文字をゲット
+		$top_char = substr($tmp, 0, 1); 
+		if ('#' == $top_char) {
+			//echo $top_char . " なのでスキップ <br />\n";
+		} else {
+			// ファイルの内容と 改行タグと改行をエコー
+			sscanf($tmp, "%d %d %d %s",  $num_cal, $month, $day, $url);
+			printf("%d\tURL:%s<br />\n", $num_cal, $url);
+		}
+	}
+
+最終日のもともとはコレ
+			// 最終日
+			// カウンタを インクリメントした後、最終日と同じなら <img localsrc=\"487\" />
+			if( $i == ($last_num + $hyouji_offset) ) { 
+				$colspan_num = $hyouji_item_num - ( ($last_num - 1) % $hyouji_item_num ) - $hyouji_offset;
+				printf("<td colspan = \"%d\" align=\"center\" bgcolor=\"#ffa500\">", $colspan_num);
+				//
+				sscanf(date("d"), "%d",  $x_day);
+				if ($i == $x_day) // 取得した日付が 最終日と同じなら…
+				{
+					printf("<a href=\"/search/contents.php\?words=\&id=de_894117\"> %d <b>ラストー</b></a>", 
+						$num_cal);
+				} else {
+					printf(" %d <b>ラストー</b></a>", $num_cal);
+				}
+				//
+				printf("</td></tr>  ");
+				break;
+			}
+
+	echo "画像アンカーのテスト \n";
+	printf("<a href=\"/search/download?cid=de_894117\" >"); 
+	printf("<img src=\"/images/halloween31.gif\"  copyright=\"yes\" alt=\"ﾊﾛｳｨﾝ31\" style=\"border-bottom: 2px #3581F9 solid;\"/>");
+	printf("</a>");
+	echo "<br />\n";
+****************/
+?>
